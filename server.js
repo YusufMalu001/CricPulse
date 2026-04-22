@@ -191,8 +191,25 @@ function buildPayload(phase, matchState) {
   return payload;
 }
 
-// ─── MAIN LOOP ─────────────────────────────────────────────────────────────────
-let loopInterval = null;
+function executeCycle() {
+  // Get next batch from demo controller
+  const { messages: rawMessages, phase, matchState: demoMatchState } = demoController.getNextBatch();
+  
+  // Prefer RapidAPI state if available, else fallback to demo mock state
+  const apiState = liveScoreFetcher.getLiveState();
+  const currentMatchState = (apiState && apiState.rrScore !== 128) ? apiState : demoMatchState;
+
+  // Update intelligence engine with active players dynamically
+  if (apiState && apiState.activePlayers && apiState.activePlayers.length > 0) {
+    intelligence.setActiveLivePlayers(apiState.activePlayers);
+  }
+
+  // Run pipeline
+  runIngestionPipeline(rawMessages);
+
+  // Build response
+  return buildPayload(phase, currentMatchState);
+}
 
 function startLoop() {
   // Start polling RapidAPI every 15 seconds
@@ -201,39 +218,34 @@ function startLoop() {
     liveScoreFetcher.fetchLiveScore();
   }, 15000);
 
-  loopInterval = setInterval(() => {
-    // Get next batch from demo controller (Block 9)
-    const { messages: rawMessages, phase, matchState: demoMatchState } = demoController.getNextBatch();
-    
-    // Prefer RapidAPI state if available, else fallback to demo mock state
-    const apiState = liveScoreFetcher.getLiveState();
-    const currentMatchState = (apiState && apiState.rrScore !== 128) ? apiState : demoMatchState;
+  // Only run the background interval if NOT on Vercel
+  if (!process.env.VERCEL) {
+    loopInterval = setInterval(() => {
+      const payload = executeCycle();
 
-    // Update intelligence engine with active players dynamically
-    if (apiState && apiState.activePlayers && apiState.activePlayers.length > 0) {
-      intelligence.setActiveLivePlayers(apiState.activePlayers);
-    }
-
-    // Run pipeline
-    runIngestionPipeline(rawMessages);
-
-    // Build response
-    const payload = buildPayload(phase, currentMatchState);
-
-    // Broadcast to all WebSocket clients
-    const json = JSON.stringify(payload);
-    wss.clients.forEach(client => {
-      if (client.readyState === WebSocket.OPEN) {
-        client.send(json);
-      }
-    });
-  }, UPDATE_INTERVAL_MS);
+      // Broadcast to all WebSocket clients (for backward compatibility if run locally)
+      const json = JSON.stringify(payload);
+      wss.clients.forEach(client => {
+        if (client.readyState === WebSocket.OPEN) {
+          client.send(json);
+        }
+      });
+    }, UPDATE_INTERVAL_MS);
+  }
 }
 
 // ─── REST API ROUTES ──────────────────────────────────────────────────────────
 
 // GET: Latest pulse snapshot
 app.get('/api/pulse', (req, res) => {
+  // Vercel serverless environment doesn't keep setInterval alive.
+  // Manually tick the engine on HTTP request to simulate real-time.
+  if (process.env.VERCEL) {
+    if (Math.random() < 0.2) liveScoreFetcher.fetchLiveScore(); // Trigger async fetch occasionally
+    const payload = executeCycle();
+    return res.json(payload);
+  }
+
   if (!lastPayload) {
     return res.json({ ready: false, message: 'System initializing...' });
   }

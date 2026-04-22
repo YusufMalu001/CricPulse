@@ -7,7 +7,7 @@
 const WS_URL = `ws://${window.location.host}`;
 const API_URL = `http://${window.location.host}/api`;
 
-let ws;
+let pollInterval;
 const graphHistory = [];
 const MAX_GRAPH_POINTS = 20;
 
@@ -84,34 +84,34 @@ const els = {
 };
 
 // ─── WEBSOCKET SETUP ─────────────────────────────────────────────────────────
+async function fetchPayload() {
+  try {
+    const res = await fetch(API_URL + '/pulse');
+    if (!res.ok) throw new Error('Network response was not ok');
+    const payload = await res.json();
+    
+    if (els.connStatusBtn.textContent !== 'SYSTEM ONLINE') {
+      els.connStatusBtn.textContent = 'SYSTEM ONLINE';
+      els.connStatusBtn.classList.remove('bg-slate-700', 'text-slate-300', 'bg-red-900', 'text-red-200');
+      els.connStatusBtn.classList.add('bg-primary-container', 'text-on-primary-container');
+    }
+    
+    updateUI(payload);
+  } catch (e) {
+    console.error('Failed to fetch data', e);
+    els.connStatusBtn.textContent = 'OFFLINE - RECONNECTING';
+    els.connStatusBtn.classList.remove('bg-primary-container', 'text-on-primary-container');
+    els.connStatusBtn.classList.add('bg-red-900', 'text-red-200');
+  }
+}
+
 function connect() {
   els.connStatusBtn.textContent = 'Connecting...';
   els.connStatusBtn.classList.add('bg-slate-700', 'text-slate-300');
   els.connStatusBtn.classList.remove('bg-primary-container', 'text-on-primary-container', 'bg-red-900', 'text-red-200');
 
-  ws = new WebSocket(WS_URL);
-
-  ws.onopen = () => {
-    els.connStatusBtn.textContent = 'SYSTEM ONLINE';
-    els.connStatusBtn.classList.remove('bg-slate-700', 'text-slate-300');
-    els.connStatusBtn.classList.add('bg-primary-container', 'text-on-primary-container');
-  };
-
-  ws.onmessage = (event) => {
-    try {
-      const payload = JSON.parse(event.data);
-      updateUI(payload);
-    } catch (e) {
-      console.error('Failed to parse WS message', e);
-    }
-  };
-
-  ws.onclose = () => {
-    els.connStatusBtn.textContent = 'OFFLINE - RECONNECTING';
-    els.connStatusBtn.classList.remove('bg-primary-container', 'text-on-primary-container');
-    els.connStatusBtn.classList.add('bg-red-900', 'text-red-200');
-    setTimeout(connect, 2000);
-  };
+  fetchPayload();
+  pollInterval = setInterval(fetchPayload, 2500);
 }
 
 // ─── GRAPH DRAWING LOGIC ─────────────────────────────────────────────────────

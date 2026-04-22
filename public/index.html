@@ -1,12 +1,18 @@
 <!DOCTYPE html>
-<html class="dark" lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>CROWD PULSE | Live Cricket Analytics</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;family=Space+Grotesk:wght@600;700&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>CRIC PULSE | Live Cricket Analytics</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;family=Space+Grotesk:wght@600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
             theme: {
@@ -82,328 +88,425 @@
                         "display-score": ["Inter"]
                     },
                     "fontSize": {
-                        "headline-md": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
-                        "label-caps": ["11px", {"lineHeight": "16px", "letterSpacing": "0.08em", "fontWeight": "600"}],
-                        "data-numeral": ["16px", {"lineHeight": "1", "letterSpacing": "0.02em", "fontWeight": "700"}],
-                        "headline-lg": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
-                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
-                        "display-score": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "800"}]
+                        "headline-md": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+                        "label-caps": ["11px", { "lineHeight": "16px", "letterSpacing": "0.08em", "fontWeight": "600" }],
+                        "data-numeral": ["16px", { "lineHeight": "1", "letterSpacing": "0.02em", "fontWeight": "700" }],
+                        "headline-lg": ["24px", { "lineHeight": "32px", "fontWeight": "700" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "display-score": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "800" }]
                     }
                 },
             },
         }
     </script>
-<style>
+    <style>
         .glass-card {
-            background: rgba(15, 16, 28, 0.85); /* Darker and more opaque */
-            backdrop-filter: blur(16px); /* Stronger blur */
+            background: rgba(15, 16, 28, 0.85);
+            /* Darker and more opaque */
+            backdrop-filter: blur(16px);
+            /* Stronger blur */
             border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37); /* Add shadow for depth */
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            /* Add shadow for depth */
         }
+
         .neon-glow-primary {
             box-shadow: 0 0 15px rgba(209, 29, 90, 0.4);
         }
+
         .neon-glow-secondary {
             box-shadow: 0 0 15px rgba(26, 136, 255, 0.4);
         }
+
         .scanline {
             background: linear-gradient(to bottom, transparent 50%, rgba(209, 29, 90, 0.05) 50%);
             background-size: 100% 4px;
         }
     </style>
 </head>
-<body class="bg-background text-on-surface font-body-md min-h-screen selection:bg-primary/30" style="background-image: url('bg.png'); background-size: cover; background-position: center; background-attachment: fixed;">
-<!-- Top Navigation Bar -->
-<header class="flex justify-between items-center px-6 h-16 w-full sticky top-0 bg-slate-950/80 backdrop-blur-xl text-[#d11d5a] font-sans tracking-tight font-medium uppercase text-xs z-50 border-b border-white/10 shadow-[0_4px_20px_rgba(0,0,0,0.5)]">
-<div class="flex items-center gap-8">
-<span class="text-2xl font-black text-[#d11d5a] italic tracking-tighter">CROWD PULSE</span>
-<nav class="hidden md:flex gap-6 items-center">
-<a class="text-[#d11d5a] border-b-2 border-[#d11d5a] pb-2 font-bold cursor-pointer active:scale-95" href="#">Dashboard</a>
-<a class="text-slate-400 hover:text-white transition-colors cursor-pointer active:scale-95" href="#">Live Feed</a>
-<a class="text-slate-400 hover:text-white transition-colors cursor-pointer active:scale-95" href="#">Stats</a>
-<a class="text-slate-400 hover:text-white transition-colors cursor-pointer active:scale-95" href="#">Teams</a>
-<a class="text-slate-400 hover:text-white transition-colors cursor-pointer active:scale-95" href="#">Fan Zone</a>
-</nav>
-</div>
-<div class="flex items-center gap-4">
-<div class="relative cursor-pointer hover:bg-white/5 p-2 rounded-full transition-all">
-<span class="material-symbols-outlined text-slate-300" data-icon="notifications">notifications</span>
-<span class="absolute top-1 right-1 w-2 h-2 bg-primary-container rounded-full border border-background"></span>
-</div>
-<div class="cursor-pointer hover:bg-white/5 p-2 rounded-full transition-all">
-<span class="material-symbols-outlined text-slate-300" data-icon="settings">settings</span>
-</div>
-<img alt="User profile avatar" class="w-8 h-8 rounded-full border border-primary/50" data-alt="professional portrait of a tech-savvy cricket fan looking focused against a blurred stadium lights background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuADbxjnXS67GW6pEUW2JtdI1zkcsLypMJA8YnjfvswrgzErBy1V0pE-F6DqiVKsMPN840qFTIdKgdYwtkr0tgGgLhMp9NVmdL3Ss_pgWpP6RZUkPKSN5gMZfpd6Dm1WT4xEhbWGBAT22v7b9JbTekdF_FGqWcS4DCoRjUfhX9sWnDib3aqH7OSxmFHATRtOkdy2W010pvTJ5l0ZmUAxO80iN0Gg_s0f_sOwYND1g8wY11aCQOFIJFoTy-QBxR2pRUKiMEOzMA8S66c"/>
-</div>
-</header>
-<div class="flex">
-<!-- Side Navigation Bar (Hidden on small screens) -->
-<aside class="fixed left-0 top-16 h-[calc(100vh-64px)] flex flex-col py-4 z-40 bg-[#0a0b1e]/90 backdrop-blur-lg border-r border-white/5 shadow-2xl w-64 hidden xl:flex">
-<div class="px-6 mb-8">
-<div class="flex items-center gap-3 mb-1">
-<img alt="IPL 2026 Tournament Logo" class="w-8 h-8" data-alt="golden IPL trophy logo with neon pink and blue glow effects on a dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC4JdDkxTxX5Ms6SlaIb5Vb9DqT_hqkw4aKXaM48a-FvsrhG-aVIDcgrA8DlbmxHGJXtiXkmaaYuagI0B2nwqNQTmvyU7eANzxLPtlnVajEV3zTn0CRv7HDz59wMiuTWsx9xDxfyX9KjAd1-Ibvt9KQ3-i3znPKUWUMHdkrhsIlI7yqKpfoe4Rylq5BzHSzJGfM9tk6XlLKbRBhadEeBj9jal0JAwJSNe0XCQ7bzhKyCUbmZFAi7xdODyR0wD4Zi0NEXvv8B4xeADE"/>
-<div>
-<div class="text-lg font-bold text-white font-headline-md">IPL 2026</div>
-<div class="text-[10px] text-primary font-bold tracking-[0.2em]">LIVE ANALYTICS</div>
-</div>
-</div>
-</div>
-<nav class="flex-1 space-y-1 px-3">
-<div class="flex items-center gap-3 bg-gradient-to-r from-[#d11d5a]/20 to-transparent text-[#d11d5a] border-l-4 border-[#d11d5a] p-3 rounded-r-lg font-headline-md text-sm cursor-pointer">
-<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
-<span>Home</span>
-</div>
-<div class="flex items-center gap-3 text-slate-500 p-3 hover:text-slate-200 hover:bg-white/5 transition-all cursor-pointer hover:translate-x-1 duration-200">
-<span class="material-symbols-outlined" data-icon="insights">insights</span>
-<span>Live Analytics</span>
-</div>
-<div class="flex items-center gap-3 text-slate-500 p-3 hover:text-slate-200 hover:bg-white/5 transition-all cursor-pointer hover:translate-x-1 duration-200">
-<span class="material-symbols-outlined" data-icon="person_search">person_search</span>
-<span>Player Pulse</span>
-</div>
-<div class="flex items-center gap-3 text-slate-500 p-3 hover:text-slate-200 hover:bg-white/5 transition-all cursor-pointer hover:translate-x-1 duration-200">
-<span class="material-symbols-outlined" data-icon="online_prediction">online_prediction</span>
-<span>Predictions</span>
-</div>
-<div class="flex items-center gap-3 text-slate-500 p-3 hover:text-slate-200 hover:bg-white/5 transition-all cursor-pointer hover:translate-x-1 duration-200">
-<span class="material-symbols-outlined" data-icon="history">history</span>
-<span>Archives</span>
-</div>
-</nav>
-<div class="p-6 mt-auto">
-<button class="w-full py-3 rounded-lg bg-primary-container text-on-primary-container font-bold text-xs tracking-widest hover:brightness-110 active:scale-95 transition-all shadow-lg shadow-primary/20" id="connection-status-btn">Connecting...</button>
-<div class="mt-6 space-y-3">
-<div class="flex items-center gap-3 text-slate-500 text-sm hover:text-slate-200 cursor-pointer">
-<span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
-<span>Help</span>
-</div>
-<div class="flex items-center gap-3 text-slate-500 text-sm hover:text-slate-200 cursor-pointer">
-<span class="material-symbols-outlined" data-icon="logout">logout</span>
-<span>Logout</span>
-</div>
-</div>
-</div>
-</aside>
-<!-- Main Content Area -->
-<main class="flex-1 xl:ml-64 p-6 min-h-screen">
-<!-- Scoreboard Header -->
-<section class="glass-card rounded-xl p-6 mb-widget-gap flex flex-col md:flex-row items-center justify-between gap-6 border-l-4 border-primary">
-<div class="flex items-center gap-6 w-full md:w-auto">
-<div class="flex flex-col items-center">
-<img alt="Rajasthan Royals" class="w-16 h-16 rounded-full border-2 border-[#1a88ff] p-1 bg-slate-900/50" data-alt="vibrant blue Rajasthan Royals logo badge with stylized crown elements" src="rr_jersey.png"/>
-<span class="font-label-caps text-secondary mt-2">RR</span>
-</div>
-<div class="flex flex-col items-center">
-<span class="font-display-score text-white" id="rr-score">128/4</span>
-<span class="text-slate-400 font-label-caps" id="rr-overs">20.0 OVERS</span>
-</div>
-</div>
-<div class="text-center flex-1">
-<div class="bg-primary/10 text-primary-fixed px-6 py-2 rounded-full font-headline-md inline-block border border-primary/20 mb-2" id="phase-banner-text">
+
+<body class="bg-background text-on-surface font-body-md min-h-screen selection:bg-primary/30"
+    style="background-image: url('bg.png'); background-size: cover; background-position: center; background-attachment: fixed;">
+    <!-- Top Navigation Bar -->
+    <header
+        class="flex justify-between items-center px-6 h-16 w-full sticky top-0 bg-slate-950/80 backdrop-blur-xl text-[#d11d5a] font-sans tracking-tight font-medium uppercase text-xs z-50 border-b border-white/10 shadow-[0_4px_20px_rgba(0,0,0,0.5)]">
+        <div class="flex items-center gap-8">
+            <span class="text-2xl font-black text-[#d11d5a] italic tracking-tighter">CROWD PULSE</span>
+            <nav class="hidden md:flex gap-6 items-center">
+                <a class="text-[#d11d5a] border-b-2 border-[#d11d5a] pb-2 font-bold cursor-pointer active:scale-95"
+                    href="#">Dashboard</a>
+                <a class="text-slate-400 hover:text-white transition-colors cursor-pointer active:scale-95"
+                    href="#">Live Feed</a>
+                <a class="text-slate-400 hover:text-white transition-colors cursor-pointer active:scale-95"
+                    href="#">Stats</a>
+                <a class="text-slate-400 hover:text-white transition-colors cursor-pointer active:scale-95"
+                    href="#">Teams</a>
+                <a class="text-slate-400 hover:text-white transition-colors cursor-pointer active:scale-95" href="#">Fan
+                    Zone</a>
+            </nav>
+        </div>
+        <div class="flex items-center gap-4">
+            <div class="relative cursor-pointer hover:bg-white/5 p-2 rounded-full transition-all">
+                <span class="material-symbols-outlined text-slate-300" data-icon="notifications">notifications</span>
+                <span
+                    class="absolute top-1 right-1 w-2 h-2 bg-primary-container rounded-full border border-background"></span>
+            </div>
+            <div class="cursor-pointer hover:bg-white/5 p-2 rounded-full transition-all">
+                <span class="material-symbols-outlined text-slate-300" data-icon="settings">settings</span>
+            </div>
+            <img alt="User profile avatar" class="w-8 h-8 rounded-full border border-primary/50"
+                data-alt="professional portrait of a tech-savvy cricket fan looking focused against a blurred stadium lights background"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuADbxjnXS67GW6pEUW2JtdI1zkcsLypMJA8YnjfvswrgzErBy1V0pE-F6DqiVKsMPN840qFTIdKgdYwtkr0tgGgLhMp9NVmdL3Ss_pgWpP6RZUkPKSN5gMZfpd6Dm1WT4xEhbWGBAT22v7b9JbTekdF_FGqWcS4DCoRjUfhX9sWnDib3aqH7OSxmFHATRtOkdy2W010pvTJ5l0ZmUAxO80iN0Gg_s0f_sOwYND1g8wY11aCQOFIJFoTy-QBxR2pRUKiMEOzMA8S66c" />
+        </div>
+    </header>
+    <div class="flex">
+        <!-- Side Navigation Bar (Hidden on small screens) -->
+        <aside
+            class="fixed left-0 top-16 h-[calc(100vh-64px)] flex flex-col py-4 z-40 bg-[#0a0b1e]/90 backdrop-blur-lg border-r border-white/5 shadow-2xl w-64 hidden xl:flex">
+            <div class="px-6 mb-8">
+                <div class="flex items-center gap-3 mb-1">
+                    <img alt="IPL 2026 Tournament Logo" class="w-8 h-8"
+                        data-alt="golden IPL trophy logo with neon pink and blue glow effects on a dark background"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuC4JdDkxTxX5Ms6SlaIb5Vb9DqT_hqkw4aKXaM48a-FvsrhG-aVIDcgrA8DlbmxHGJXtiXkmaaYuagI0B2nwqNQTmvyU7eANzxLPtlnVajEV3zTn0CRv7HDz59wMiuTWsx9xDxfyX9KjAd1-Ibvt9KQ3-i3znPKUWUMHdkrhsIlI7yqKpfoe4Rylq5BzHSzJGfM9tk6XlLKbRBhadEeBj9jal0JAwJSNe0XCQ7bzhKyCUbmZFAi7xdODyR0wD4Zi0NEXvv8B4xeADE" />
+                    <div>
+                        <div class="text-lg font-bold text-white font-headline-md">IPL 2026</div>
+                        <div class="text-[10px] text-primary font-bold tracking-[0.2em]">LIVE ANALYTICS</div>
+                    </div>
+                </div>
+            </div>
+            <nav class="flex-1 space-y-1 px-3">
+                <div
+                    class="flex items-center gap-3 bg-gradient-to-r from-[#d11d5a]/20 to-transparent text-[#d11d5a] border-l-4 border-[#d11d5a] p-3 rounded-r-lg font-headline-md text-sm cursor-pointer">
+                    <span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+                    <span>Home</span>
+                </div>
+                <div
+                    class="flex items-center gap-3 text-slate-500 p-3 hover:text-slate-200 hover:bg-white/5 transition-all cursor-pointer hover:translate-x-1 duration-200">
+                    <span class="material-symbols-outlined" data-icon="insights">insights</span>
+                    <span>Live Analytics</span>
+                </div>
+                <div
+                    class="flex items-center gap-3 text-slate-500 p-3 hover:text-slate-200 hover:bg-white/5 transition-all cursor-pointer hover:translate-x-1 duration-200">
+                    <span class="material-symbols-outlined" data-icon="person_search">person_search</span>
+                    <span>Player Pulse</span>
+                </div>
+                <div
+                    class="flex items-center gap-3 text-slate-500 p-3 hover:text-slate-200 hover:bg-white/5 transition-all cursor-pointer hover:translate-x-1 duration-200">
+                    <span class="material-symbols-outlined" data-icon="online_prediction">online_prediction</span>
+                    <span>Predictions</span>
+                </div>
+                <div
+                    class="flex items-center gap-3 text-slate-500 p-3 hover:text-slate-200 hover:bg-white/5 transition-all cursor-pointer hover:translate-x-1 duration-200">
+                    <span class="material-symbols-outlined" data-icon="history">history</span>
+                    <span>Archives</span>
+                </div>
+            </nav>
+            <div class="p-6 mt-auto">
+                <button
+                    class="w-full py-3 rounded-lg bg-primary-container text-on-primary-container font-bold text-xs tracking-widest hover:brightness-110 active:scale-95 transition-all shadow-lg shadow-primary/20"
+                    id="connection-status-btn">Connecting...</button>
+                <div class="mt-6 space-y-3">
+                    <div class="flex items-center gap-3 text-slate-500 text-sm hover:text-slate-200 cursor-pointer">
+                        <span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
+                        <span>Help</span>
+                    </div>
+                    <div class="flex items-center gap-3 text-slate-500 text-sm hover:text-slate-200 cursor-pointer">
+                        <span class="material-symbols-outlined" data-icon="logout">logout</span>
+                        <span>Logout</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+        <!-- Main Content Area -->
+        <main class="flex-1 xl:ml-64 p-6 min-h-screen">
+            <!-- Scoreboard Header -->
+            <section
+                class="glass-card rounded-xl p-6 mb-widget-gap flex flex-col md:flex-row items-center justify-between gap-6 border-l-4 border-primary">
+                <div class="flex items-center gap-6 w-full md:w-auto">
+                    <div class="flex flex-col items-center">
+                        <img alt="Rajasthan Royals"
+                            class="w-16 h-16 rounded-full border-2 border-[#1a88ff] p-1 bg-slate-900/50"
+                            data-alt="vibrant blue Rajasthan Royals logo badge with stylized crown elements"
+                            src="rr_jersey.png" />
+                        <span class="font-label-caps text-secondary mt-2">RR</span>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <span class="font-display-score text-white" id="rr-score">128/4</span>
+                        <span class="text-slate-400 font-label-caps" id="rr-overs">20.0 OVERS</span>
+                    </div>
+                </div>
+                <div class="text-center flex-1">
+                    <div class="bg-primary/10 text-primary-fixed px-6 py-2 rounded-full font-headline-md inline-block border border-primary/20 mb-2"
+                        id="phase-banner-text">
                         LSG need 42 runs from 34 balls
                     </div>
-<div class="text-slate-500 font-label-caps text-[10px] tracking-[0.3em]">LIVE DEMO ACTIVE</div>
-</div>
-<div class="flex items-center gap-6 w-full md:w-auto justify-end">
-<div class="flex flex-col items-center text-right">
-<span class="font-display-score text-white" id="lsg-score">87/3</span>
-<span class="text-slate-400 font-label-caps" id="lsg-overs">12.1 OVERS</span>
-</div>
-<div class="flex flex-col items-center">
-<img alt="Lucknow Super Giants" class="w-16 h-16 rounded-full border-2 border-primary-container p-1 bg-slate-900/50" data-alt="vibrant pink Lucknow Super Giants logo badge with stylized wing elements" src="lsg_jersey.png"/>
-<span class="font-label-caps text-primary mt-2">LSG</span>
-</div>
-</div>
-</section>
-<!-- Dashboard Grid -->
-<div class="grid grid-cols-12 gap-widget-gap">
-<!-- Left Column: Interaction -->
-<div class="col-span-12 lg:col-span-3 space-y-widget-gap">
-<div class="glass-card rounded-xl p-card-padding">
-<h3 class="font-label-caps text-slate-400 mb-4 uppercase">Choose Your Side</h3>
-<div class="flex gap-4">
-<button class="flex-1 flex flex-col items-center gap-2 p-3 rounded-lg bg-surface-container-high border-2 border-[#1a88ff] neon-glow-secondary yvc-btn" id="btn-confident" onclick="setStance('Confident')">
-<img src="rr_jersey.png" alt="RR" class="w-12 h-12" />
-<span class="font-label-caps text-[#1a88ff]">Rajasthan Royals</span>
-</button>
-<button class="flex-1 flex flex-col items-center gap-2 p-3 rounded-lg bg-surface-container-high hover:border-primary transition-all yvc-btn" id="btn-nervous" onclick="setStance('Nervous')">
-<img src="lsg_jersey.png" alt="LSG" class="w-12 h-12" />
-<span class="font-label-caps text-slate-400">Lucknow Super Giants</span>
-</button>
-</div>
-<div class="mt-4 p-4 bg-surface-container-low rounded-lg border border-white/5" id="yvc-result">
-<div class="flex justify-between items-center mb-2">
-<span class="text-[10px] font-label-caps text-slate-400">YOU vs CROWD</span>
-<span class="text-[10px] font-bold text-primary" id="yvc-status">Awaiting selection</span>
-</div>
-<div class="h-2 bg-slate-800 rounded-full overflow-hidden flex">
-<div class="bg-primary neon-glow-primary transition-all duration-500" id="yvc-bar" style="width: 0%;"></div>
-</div>
-<div class="flex justify-between mt-1 text-[10px] font-label-caps text-slate-500">
-<span id="yvc-crowd-emotion">-</span>
-<span id="yvc-crowd-pct">0%</span>
-</div>
-</div>
-</div>
-<div class="glass-card rounded-xl p-card-padding">
-<h3 class="font-label-caps text-slate-400 mb-4 uppercase">Demo Control</h3>
-<div class="grid grid-cols-2 gap-2 mb-2">
-    <button class="p-2 bg-red-500/20 text-red-400 rounded text-xs border border-red-500/50 hover:bg-red-500/40" onclick="injectScenario('tension')">😰 Inject Tension</button>
-    <button class="p-2 bg-green-500/20 text-green-400 rounded text-xs border border-green-500/50 hover:bg-green-500/40" onclick="injectScenario('euphoria')">🎉 Inject Excitement</button>
-    <button class="p-2 bg-blue-500/20 text-blue-400 rounded text-xs border border-blue-500/50 hover:bg-blue-500/40" onclick="injectScenario('kohli_heavy')">⭐ Inject Player</button>
-    <button class="p-2 bg-orange-500/20 text-orange-400 rounded text-xs border border-orange-500/50 hover:bg-orange-500/40" onclick="injectScenario('spike')">💥 Trigger Spike</button>
-</div>
-<button class="w-full p-2 bg-slate-700 hover:bg-slate-600 rounded text-xs mt-2" onclick="resetSystem()">🔄 Reset System</button>
-</div>
-</div>
-<!-- Center Column: Analytics -->
-<div class="col-span-12 lg:col-span-6 space-y-widget-gap">
+                    <div class="text-slate-500 font-label-caps text-[10px] tracking-[0.3em]">LIVE DEMO ACTIVE</div>
+                </div>
+                <div class="flex items-center gap-6 w-full md:w-auto justify-end">
+                    <div class="flex flex-col items-center text-right">
+                        <span class="font-display-score text-white" id="lsg-score">87/3</span>
+                        <span class="text-slate-400 font-label-caps" id="lsg-overs">12.1 OVERS</span>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <img alt="Lucknow Super Giants"
+                            class="w-16 h-16 rounded-full border-2 border-primary-container p-1 bg-slate-900/50"
+                            data-alt="vibrant pink Lucknow Super Giants logo badge with stylized wing elements"
+                            src="lsg_jersey.png" />
+                        <span class="font-label-caps text-primary mt-2">LSG</span>
+                    </div>
+                </div>
+            </section>
+            <!-- Dashboard Grid -->
+            <div class="grid grid-cols-12 gap-widget-gap">
+                <!-- Left Column: Interaction -->
+                <div class="col-span-12 lg:col-span-3 space-y-widget-gap">
+                    <div class="glass-card rounded-xl p-card-padding">
+                        <h3 class="font-label-caps text-slate-400 mb-4 uppercase">Choose Your Side</h3>
+                        <div class="flex gap-4">
+                            <button
+                                class="flex-1 flex flex-col items-center gap-2 p-3 rounded-lg bg-surface-container-high border-2 border-[#1a88ff] neon-glow-secondary yvc-btn"
+                                id="btn-confident" onclick="setStance('Confident')">
+                                <img src="rr_jersey.png" alt="RR" class="w-12 h-12" />
+                                <span class="font-label-caps text-[#1a88ff]">Rajasthan Royals</span>
+                            </button>
+                            <button
+                                class="flex-1 flex flex-col items-center gap-2 p-3 rounded-lg bg-surface-container-high hover:border-primary transition-all yvc-btn"
+                                id="btn-nervous" onclick="setStance('Nervous')">
+                                <img src="lsg_jersey.png" alt="LSG" class="w-12 h-12" />
+                                <span class="font-label-caps text-slate-400">Lucknow Super Giants</span>
+                            </button>
+                        </div>
+                        <div class="mt-4 p-4 bg-surface-container-low rounded-lg border border-white/5" id="yvc-result">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-[10px] font-label-caps text-slate-400">YOU vs CROWD</span>
+                                <span class="text-[10px] font-bold text-primary" id="yvc-status">Awaiting
+                                    selection</span>
+                            </div>
+                            <div class="h-2 bg-slate-800 rounded-full overflow-hidden flex">
+                                <div class="bg-primary neon-glow-primary transition-all duration-500" id="yvc-bar"
+                                    style="width: 0%;"></div>
+                            </div>
+                            <div class="flex justify-between mt-1 text-[10px] font-label-caps text-slate-500">
+                                <span id="yvc-crowd-emotion">-</span>
+                                <span id="yvc-crowd-pct">0%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="glass-card rounded-xl p-card-padding">
+                        <h3 class="font-label-caps text-slate-400 mb-4 uppercase">Demo Control</h3>
+                        <div class="grid grid-cols-2 gap-2 mb-2">
+                            <button
+                                class="p-2 bg-red-500/20 text-red-400 rounded text-xs border border-red-500/50 hover:bg-red-500/40"
+                                onclick="injectScenario('tension')">😰 Inject Tension</button>
+                            <button
+                                class="p-2 bg-green-500/20 text-green-400 rounded text-xs border border-green-500/50 hover:bg-green-500/40"
+                                onclick="injectScenario('euphoria')">🎉 Inject Excitement</button>
+                            <button
+                                class="p-2 bg-blue-500/20 text-blue-400 rounded text-xs border border-blue-500/50 hover:bg-blue-500/40"
+                                onclick="injectScenario('kohli_heavy')">⭐ Inject Player</button>
+                            <button
+                                class="p-2 bg-orange-500/20 text-orange-400 rounded text-xs border border-orange-500/50 hover:bg-orange-500/40"
+                                onclick="injectScenario('spike')">💥 Trigger Spike</button>
+                        </div>
+                        <button class="w-full p-2 bg-slate-700 hover:bg-slate-600 rounded text-xs mt-2"
+                            onclick="resetSystem()">🔄 Reset System</button>
+                    </div>
+                </div>
+                <!-- Center Column: Analytics -->
+                <div class="col-span-12 lg:col-span-6 space-y-widget-gap">
 
-<!-- Crowd Emotion Timeline -->
-<div class="glass-card rounded-xl p-card-padding relative overflow-hidden">
-<div class="scanline absolute inset-0 pointer-events-none opacity-20"></div>
-<div class="flex justify-between items-center mb-6">
-<h3 class="font-label-caps text-slate-400 uppercase">Crowd Emotion Timeline</h3>
-<div class="flex gap-4 text-[10px] font-label-caps">
-<span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-red-500"></span> TENSION</span>
-<span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-green-500"></span> EXCITEMENT</span>
-<span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-yellow-500"></span> FRUSTRATION</span>
-<span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-blue-500"></span> DISBELIEF</span>
-</div>
-</div>
-<div class="h-64 w-full relative">
-<!-- SVG Graph Mockup -->
-<svg class="w-full h-full" viewbox="0 0 400 200">
-<path id="path-tension" d="" fill="none" stroke="#ef4444" stroke-width="2"></path>
-<path id="path-excitement" d="" fill="none" stroke="#22c55e" stroke-width="2"></path>
-<path id="path-frustration" d="" fill="none" stroke="#eab308" stroke-dasharray="4" stroke-width="1.5"></path>
-<path id="path-disbelief" d="" fill="none" stroke="#3b82f6" stroke-dasharray="4" stroke-width="1.5"></path>
-<circle cx="120" cy="80" fill="#22c55e" r="3"></circle>
-<!-- Annotations -->
-<g transform="translate(145, 15)">
-    <rect x="0" y="0" width="40" height="16" rx="4" fill="rgba(239,68,68,0.2)" stroke="#ef4444" stroke-width="1"></rect>
-    <text class="text-[8px] font-bold font-label-caps" fill="#ef4444" x="20" y="11" text-anchor="middle">🔥 WICKET!</text>
-</g>
-<line x1="160" y1="35" x2="160" y2="40" stroke="#ef4444" stroke-width="1"></line>
+                    <!-- Crowd Emotion Timeline -->
+                    <div class="glass-card rounded-xl p-card-padding relative overflow-hidden">
+                        <div class="scanline absolute inset-0 pointer-events-none opacity-20"></div>
+                        <div class="flex justify-between items-center mb-6">
+                            <h3 class="font-label-caps text-slate-400 uppercase">Crowd Emotion Timeline</h3>
+                            <div class="flex gap-4 text-[10px] font-label-caps">
+                                <span class="flex items-center gap-1"><span
+                                        class="w-2 h-2 rounded-full bg-red-500"></span> TENSION</span>
+                                <span class="flex items-center gap-1"><span
+                                        class="w-2 h-2 rounded-full bg-green-500"></span> EXCITEMENT</span>
+                                <span class="flex items-center gap-1"><span
+                                        class="w-2 h-2 rounded-full bg-yellow-500"></span> FRUSTRATION</span>
+                                <span class="flex items-center gap-1"><span
+                                        class="w-2 h-2 rounded-full bg-blue-500"></span> DISBELIEF</span>
+                            </div>
+                        </div>
+                        <div class="h-64 w-full relative">
+                            <!-- SVG Graph Mockup -->
+                            <svg class="w-full h-full" viewbox="0 0 400 200">
+                                <path id="path-tension" d="" fill="none" stroke="#ef4444" stroke-width="2"></path>
+                                <path id="path-excitement" d="" fill="none" stroke="#22c55e" stroke-width="2"></path>
+                                <path id="path-frustration" d="" fill="none" stroke="#eab308" stroke-dasharray="4"
+                                    stroke-width="1.5"></path>
+                                <path id="path-disbelief" d="" fill="none" stroke="#3b82f6" stroke-dasharray="4"
+                                    stroke-width="1.5"></path>
+                                <circle cx="120" cy="80" fill="#22c55e" r="3"></circle>
+                                <!-- Annotations -->
+                                <g transform="translate(145, 15)">
+                                    <rect x="0" y="0" width="40" height="16" rx="4" fill="rgba(239,68,68,0.2)"
+                                        stroke="#ef4444" stroke-width="1"></rect>
+                                    <text class="text-[8px] font-bold font-label-caps" fill="#ef4444" x="20" y="11"
+                                        text-anchor="middle">🔥 WICKET!</text>
+                                </g>
+                                <line x1="160" y1="35" x2="160" y2="40" stroke="#ef4444" stroke-width="1"></line>
 
-<g transform="translate(100, 55)">
-    <rect x="0" y="0" width="36" height="16" rx="4" fill="rgba(34,197,94,0.2)" stroke="#22c55e" stroke-width="1"></rect>
-    <text class="text-[8px] font-bold font-label-caps" fill="#22c55e" x="18" y="11" text-anchor="middle">🔥 SIX!</text>
-</g>
-<line x1="120" y1="75" x2="120" y2="80" stroke="#22c55e" stroke-width="1"></line>
+                                <g transform="translate(100, 55)">
+                                    <rect x="0" y="0" width="36" height="16" rx="4" fill="rgba(34,197,94,0.2)"
+                                        stroke="#22c55e" stroke-width="1"></rect>
+                                    <text class="text-[8px] font-bold font-label-caps" fill="#22c55e" x="18" y="11"
+                                        text-anchor="middle">🔥 SIX!</text>
+                                </g>
+                                <line x1="120" y1="75" x2="120" y2="80" stroke="#22c55e" stroke-width="1"></line>
 
-<!-- Active Over Line -->
-<g id="active-over-group" transform="translate(0,0)" class="transition-transform duration-500">
-  <line x1="0" y1="10" x2="0" y2="190" stroke="#d11d5a" stroke-width="1" stroke-dasharray="4"></line>
-  <polygon points="-3,10 3,10 0,16" fill="#d11d5a"></polygon>
-  <circle cx="0" cy="185" r="8" fill="#d11d5a"></circle>
-  <text id="active-over-text" class="text-[8px] font-bold font-label-caps" fill="#fff" x="0" y="188" text-anchor="middle">0</text>
-</g>
+                                <!-- Active Over Line -->
+                                <g id="active-over-group" transform="translate(0,0)"
+                                    class="transition-transform duration-500">
+                                    <line x1="0" y1="10" x2="0" y2="190" stroke="#d11d5a" stroke-width="1"
+                                        stroke-dasharray="4"></line>
+                                    <polygon points="-3,10 3,10 0,16" fill="#d11d5a"></polygon>
+                                    <circle cx="0" cy="185" r="8" fill="#d11d5a"></circle>
+                                    <text id="active-over-text" class="text-[8px] font-bold font-label-caps" fill="#fff"
+                                        x="0" y="188" text-anchor="middle">0</text>
+                                </g>
 
-<!-- Grid lines -->
-<line x1="0" y1="50" x2="400" y2="50" stroke="rgba(255,255,255,0.05)" stroke-width="1"></line>
-<line x1="0" y1="100" x2="400" y2="100" stroke="rgba(255,255,255,0.05)" stroke-width="1"></line>
-<line x1="0" y1="150" x2="400" y2="150" stroke="rgba(255,255,255,0.05)" stroke-width="1"></line>
+                                <!-- Grid lines -->
+                                <line x1="0" y1="50" x2="400" y2="50" stroke="rgba(255,255,255,0.05)" stroke-width="1">
+                                </line>
+                                <line x1="0" y1="100" x2="400" y2="100" stroke="rgba(255,255,255,0.05)"
+                                    stroke-width="1"></line>
+                                <line x1="0" y1="150" x2="400" y2="150" stroke="rgba(255,255,255,0.05)"
+                                    stroke-width="1"></line>
 
-</svg>
-<div class="absolute bottom-0 left-0 right-0 flex justify-between px-2 text-[10px] font-label-caps text-slate-600 mt-2">
-<span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span><span>13</span><span>14</span><span>15</span><span>16</span><span>17</span><span>18</span><span>19</span><span>20</span>
-</div>
-</div>
-</div>
-<!-- Metrics Grid -->
-<div class="grid grid-cols-2 md:grid-cols-4 gap-widget-gap">
-<div class="glass-card rounded-lg p-3">
-<div class="text-[10px] font-label-caps text-slate-500 mb-1 text-red-400">TENSION</div>
-<div class="text-xl font-data-numeral text-white" id="pct-tension">0%</div>
-<div class="h-1 w-full bg-red-500/20 mt-2 rounded-full"><div class="h-full bg-red-500 transition-all duration-500" id="bar-tension" style="width: 0%"></div></div>
-</div>
-<div class="glass-card rounded-lg p-3">
-<div class="text-[10px] font-label-caps text-slate-500 mb-1 text-green-400">EXCITEMENT</div>
-<div class="text-xl font-data-numeral text-white" id="pct-excitement">0%</div>
-<div class="h-1 w-full bg-green-500/20 mt-2 rounded-full"><div class="h-full bg-green-500 transition-all duration-500" id="bar-excitement" style="width: 0%"></div></div>
-</div>
-<div class="glass-card rounded-lg p-3">
-<div class="text-[10px] font-label-caps text-slate-500 mb-1 text-yellow-500">FRUSTRATION</div>
-<div class="text-xl font-data-numeral text-white" id="pct-frustration">0%</div>
-<div class="h-1 w-full bg-yellow-500/20 mt-2 rounded-full"><div class="h-full bg-yellow-500 transition-all duration-500" id="bar-frustration" style="width: 0%"></div></div>
-</div>
-<div class="glass-card rounded-lg p-3">
-<div class="text-[10px] font-label-caps text-slate-500 mb-1 text-blue-500">DISBELIEF</div>
-<div class="text-xl font-data-numeral text-white" id="pct-disbelief">0%</div>
-<div class="h-1 w-full bg-blue-500/20 mt-2 rounded-full"><div class="h-full bg-blue-500 transition-all duration-500" id="bar-disbelief" style="width: 0%"></div></div>
-</div>
-</div>
-<!-- Visual Widgets -->
-<div class="grid grid-cols-1 md:grid-cols-2 gap-widget-gap">
-<div class="glass-card rounded-xl p-card-padding relative overflow-hidden flex flex-col items-center">
-<h3 class="font-label-caps text-slate-500 mb-2 w-full text-left uppercase">Main Character</h3>
-<div class="text-6xl mb-4 mt-2">⭐</div>
-<div class="text-center">
-<div class="text-white font-headline-md text-sm" id="player-name">Detecting...</div>
-<div class="text-[10px] font-label-caps text-primary mt-1" id="player-share">0% MENTIONS</div>
-</div>
-</div>
-<div class="glass-card rounded-xl p-card-padding flex flex-col items-center border border-white/5" id="spike-card">
-<h3 class="font-label-caps text-slate-500 mb-4 w-full text-left uppercase">Viral Spike Detector</h3>
-<div class="relative w-32 h-32 flex items-center justify-center">
-<svg class="w-full h-full -rotate-90">
-<circle cx="64" cy="64" fill="none" r="58" stroke="rgba(255,255,255,0.05)" stroke-width="8"></circle>
-<circle cx="64" cy="64" fill="none" r="58" stroke="#ffb4ab" stroke-dasharray="364" stroke-dashoffset="100" stroke-linecap="round" stroke-width="8" id="spike-circle" class="transition-all duration-500"></circle>
-</svg>
-<div class="absolute inset-0 flex flex-col items-center justify-center">
-<span class="text-2xl font-black text-white" id="spike-multiplier">1.0</span>
-<span class="text-[10px] font-bold text-primary">x</span>
-</div>
-</div>
-<p class="text-[10px] font-label-caps text-slate-400 mt-4 font-black" id="spike-status">NORMAL VOLUME</p>
-</div>
-</div>
-</div>
-<!-- Right Column: Live Feed & Alerts -->
-<div class="col-span-12 lg:col-span-3 space-y-widget-gap">
-<div class="glass-card rounded-xl p-card-padding border-t-2 border-slate-700 transition-colors duration-300" id="prediction-card">
-<div class="flex items-center gap-2 mb-3">
-<span class="material-symbols-outlined" id="prediction-icon" data-icon="bolt">bolt</span>
-<h3 class="font-label-caps uppercase text-slate-400" id="prediction-title">Next Ball Prediction</h3>
-</div>
-<div class="text-lg font-headline-lg text-slate-400 mb-1" id="prediction-label">Analyzing...</div>
-<div class="flex justify-between items-center">
-<span class="text-slate-500 text-xs">AI Confidence</span>
-<span class="font-bold text-slate-500" id="prediction-confidence">0%</span>
-</div>
-</div>
-<div class="glass-card rounded-xl p-card-padding border border-white/5" id="trending-card">
-<div class="flex items-center gap-2 mb-4">
-<span class="material-symbols-outlined text-slate-500" id="trending-icon" data-icon="trending_up">trending_up</span>
-<h3 class="font-label-caps text-slate-400 uppercase">Trending (30s)</h3>
-</div>
-<div class="space-y-4">
-<div class="flex justify-between items-start">
-<div>
-<div class="text-sm font-bold text-slate-400" id="trending-label">Monitoring patterns</div>
-<div class="text-[10px] text-slate-500" id="trending-confidence">0% CONFIDENCE</div>
-</div>
-</div>
-<div class="text-[10px] text-slate-500" id="trending-reason">
-    Waiting for velocity, intensity, and unique user signals.
-</div>
-</div>
-</div>
-<div class="glass-card rounded-xl flex-1 flex flex-col h-[300px]">
-<div class="p-card-padding border-b border-white/5 flex justify-between items-center">
-<h3 class="font-label-caps text-slate-400 uppercase">Live Fan Feed</h3>
-<span class="flex items-center gap-1 text-[10px] font-bold text-primary">
-<span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span> <span id="total-messages">0</span> msgs
+                            </svg>
+                            <div
+                                class="absolute bottom-0 left-0 right-0 flex justify-between px-2 text-[10px] font-label-caps text-slate-600 mt-2">
+                                <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span><span>13</span><span>14</span><span>15</span><span>16</span><span>17</span><span>18</span><span>19</span><span>20</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Metrics Grid -->
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-widget-gap">
+                        <div class="glass-card rounded-lg p-3">
+                            <div class="text-[10px] font-label-caps text-slate-500 mb-1 text-red-400">TENSION</div>
+                            <div class="text-xl font-data-numeral text-white" id="pct-tension">0%</div>
+                            <div class="h-1 w-full bg-red-500/20 mt-2 rounded-full">
+                                <div class="h-full bg-red-500 transition-all duration-500" id="bar-tension"
+                                    style="width: 0%"></div>
+                            </div>
+                        </div>
+                        <div class="glass-card rounded-lg p-3">
+                            <div class="text-[10px] font-label-caps text-slate-500 mb-1 text-green-400">EXCITEMENT</div>
+                            <div class="text-xl font-data-numeral text-white" id="pct-excitement">0%</div>
+                            <div class="h-1 w-full bg-green-500/20 mt-2 rounded-full">
+                                <div class="h-full bg-green-500 transition-all duration-500" id="bar-excitement"
+                                    style="width: 0%"></div>
+                            </div>
+                        </div>
+                        <div class="glass-card rounded-lg p-3">
+                            <div class="text-[10px] font-label-caps text-slate-500 mb-1 text-yellow-500">FRUSTRATION
+                            </div>
+                            <div class="text-xl font-data-numeral text-white" id="pct-frustration">0%</div>
+                            <div class="h-1 w-full bg-yellow-500/20 mt-2 rounded-full">
+                                <div class="h-full bg-yellow-500 transition-all duration-500" id="bar-frustration"
+                                    style="width: 0%"></div>
+                            </div>
+                        </div>
+                        <div class="glass-card rounded-lg p-3">
+                            <div class="text-[10px] font-label-caps text-slate-500 mb-1 text-blue-500">DISBELIEF</div>
+                            <div class="text-xl font-data-numeral text-white" id="pct-disbelief">0%</div>
+                            <div class="h-1 w-full bg-blue-500/20 mt-2 rounded-full">
+                                <div class="h-full bg-blue-500 transition-all duration-500" id="bar-disbelief"
+                                    style="width: 0%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Visual Widgets -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-widget-gap">
+                        <div
+                            class="glass-card rounded-xl p-card-padding relative overflow-hidden flex flex-col items-center">
+                            <h3 class="font-label-caps text-slate-500 mb-2 w-full text-left uppercase">Main Character
+                            </h3>
+                            <div class="text-6xl mb-4 mt-2">⭐</div>
+                            <div class="text-center">
+                                <div class="text-white font-headline-md text-sm" id="player-name">Detecting...</div>
+                                <div class="text-[10px] font-label-caps text-primary mt-1" id="player-share">0% MENTIONS
+                                </div>
+                            </div>
+                        </div>
+                        <div class="glass-card rounded-xl p-card-padding flex flex-col items-center border border-white/5"
+                            id="spike-card">
+                            <h3 class="font-label-caps text-slate-500 mb-4 w-full text-left uppercase">Viral Spike
+                                Detector</h3>
+                            <div class="relative w-32 h-32 flex items-center justify-center">
+                                <svg class="w-full h-full -rotate-90">
+                                    <circle cx="64" cy="64" fill="none" r="58" stroke="rgba(255,255,255,0.05)"
+                                        stroke-width="8"></circle>
+                                    <circle cx="64" cy="64" fill="none" r="58" stroke="#ffb4ab" stroke-dasharray="364"
+                                        stroke-dashoffset="100" stroke-linecap="round" stroke-width="8"
+                                        id="spike-circle" class="transition-all duration-500"></circle>
+                                </svg>
+                                <div class="absolute inset-0 flex flex-col items-center justify-center">
+                                    <span class="text-2xl font-black text-white" id="spike-multiplier">1.0</span>
+                                    <span class="text-[10px] font-bold text-primary">x</span>
+                                </div>
+                            </div>
+                            <p class="text-[10px] font-label-caps text-slate-400 mt-4 font-black" id="spike-status">
+                                NORMAL VOLUME</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Right Column: Live Feed & Alerts -->
+                <div class="col-span-12 lg:col-span-3 space-y-widget-gap">
+                    <div class="glass-card rounded-xl p-card-padding border-t-2 border-slate-700 transition-colors duration-300"
+                        id="prediction-card">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="material-symbols-outlined" id="prediction-icon" data-icon="bolt">bolt</span>
+                            <h3 class="font-label-caps uppercase text-slate-400" id="prediction-title">Next Ball
+                                Prediction</h3>
+                        </div>
+                        <div class="text-lg font-headline-lg text-slate-400 mb-1" id="prediction-label">Analyzing...
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-slate-500 text-xs">AI Confidence</span>
+                            <span class="font-bold text-slate-500" id="prediction-confidence">0%</span>
+                        </div>
+                    </div>
+                    <div class="glass-card rounded-xl p-card-padding border border-white/5" id="trending-card">
+                        <div class="flex items-center gap-2 mb-4">
+                            <span class="material-symbols-outlined text-slate-500" id="trending-icon"
+                                data-icon="trending_up">trending_up</span>
+                            <h3 class="font-label-caps text-slate-400 uppercase">Trending (30s)</h3>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <div class="text-sm font-bold text-slate-400" id="trending-label">Monitoring
+                                        patterns</div>
+                                    <div class="text-[10px] text-slate-500" id="trending-confidence">0% CONFIDENCE</div>
+                                </div>
+                            </div>
+                            <div class="text-[10px] text-slate-500" id="trending-reason">
+                                Waiting for velocity, intensity, and unique user signals.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="glass-card rounded-xl flex-1 flex flex-col h-[300px]">
+                        <div class="p-card-padding border-b border-white/5 flex justify-between items-center">
+                            <h3 class="font-label-caps text-slate-400 uppercase">Live Fan Feed</h3>
+                            <span class="flex items-center gap-1 text-[10px] font-bold text-primary">
+                                <span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span> <span
+                                    id="total-messages">0</span> msgs
                             </span>
-</div>
-<div class="flex-1 overflow-y-auto p-card-padding space-y-4" id="message-feed">
-<div class="text-slate-500 text-sm text-center mt-4">Waiting for fan messages...</div>
-</div>
-</div>
-</div>
-</div>
-</main>
-</div>
-<script src="app.js"></script>
-</body></html>
+                        </div>
+                        <div class="flex-1 overflow-y-auto p-card-padding space-y-4" id="message-feed">
+                            <div class="text-slate-500 text-sm text-center mt-4">Waiting for fan messages...</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="app.js"></script>
+</body>
+
+</html>
